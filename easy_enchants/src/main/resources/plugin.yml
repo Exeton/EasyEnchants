@@ -1,0 +1,5 @@
+name: EasyEnchants
+version: 1.0
+author: Fire
+description: Used for making enchants
+main: online.fireflower.easy_enchants.EasyEnchants

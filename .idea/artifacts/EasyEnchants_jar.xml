@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="EasyEnchants:jar">
+    <output-path>$PROJECT_DIR$/../Spigot 1.8.8/plugins</output-path>
+    <root id="archive" name="EasyEnchants.jar">
+      <element id="module-output" name="easy_enchants" />
+    </root>
+  </artifact>
+</component>
