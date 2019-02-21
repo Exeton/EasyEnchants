@@ -13,11 +13,9 @@ public class EasyEnchants extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
         enchantRegisterer = new EnchantRegisterer(this);
 
         EntityDamagedByEntityEnchant testEnchant = new EntityDamagedByEntityEnchant();
         enchantRegisterer.registerEvent(EntityDamageByEntityEvent.class, testEnchant, testEnchant);
-
     }
 }
