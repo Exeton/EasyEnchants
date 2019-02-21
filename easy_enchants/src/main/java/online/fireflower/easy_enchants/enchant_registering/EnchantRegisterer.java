@@ -2,7 +2,7 @@ package online.fireflower.easy_enchants.enchant_registering;
 
 import online.fireflower.easy_enchants.EasyEnchants;
 import online.fireflower.easy_enchants.Enchant;
-import online.fireflower.easy_enchants.procing.IProcedEnchantCuller;
+import online.fireflower.easy_enchants.activation.IActivatedEnchantCuller;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventPriority;
@@ -16,7 +16,7 @@ import java.util.Set;
 public class EnchantRegisterer {
 
     private EasyEnchants main;
-    private HashMap<Class, EventExecutionWrapper> classesAndExecutors = new HashMap<>();
+    private HashMap<Class, EnchantEventExecutor> classesAndExecutors = new HashMap<>();
 
 
     public EnchantRegisterer(EasyEnchants easyEnchants){
@@ -24,7 +24,7 @@ public class EnchantRegisterer {
     }
 
     public void registerEvent(Class<? extends Event> type, Enchant enchant, Listener listener){
-        EventExecutionWrapper executionWrapper = getExecutionWrapper(type);
+        EnchantEventExecutor executionWrapper = getExecutionWrapper(type);
 
         for (RegisteredListener registeredListener : getRegisteredListeners(listener))
             executionWrapper.registerEnchant(registeredListener, enchant);
@@ -37,24 +37,15 @@ public class EnchantRegisterer {
 
     }
 
-    private EventExecutionWrapper getExecutionWrapper(Class<? extends Event> type){
+    private EnchantEventExecutor getExecutionWrapper(Class<? extends Event> type){
 
         if (classesAndExecutors.containsKey(type))
             return classesAndExecutors.get(type);
 
-        EventExecutionWrapper wrapper = new EventExecutionWrapper(new IProcedEnchantCuller() {
-            public List<Enchant> cullEnchants(List<Enchant> clonedProcedEnchants) {
-                return clonedProcedEnchants;
-            }
-        }, type);
+        EnchantEventExecutor wrapper = new EnchantEventExecutor(clonedProcedEnchants -> clonedProcedEnchants, type);
         classesAndExecutors.put(type, wrapper);
-        registerExecutionWrapper(type, wrapper);
-        return wrapper;
-    }
-
-    private void registerExecutionWrapper(Class<? extends Event> type, EventExecutionWrapper wrapper){
-        Bukkit.getLogger().info("Registering execution wrapper");
         Bukkit.getPluginManager().registerEvent(type, new DummyListener(), EventPriority.NORMAL, wrapper, main);
+        return wrapper;
     }
 
 }

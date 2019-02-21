@@ -14,7 +14,7 @@ public class EntityDamagedByEntityEnchant extends Enchant {
     }
 
     @Override
-    public boolean shouldProc(Event event) {
+    public boolean shouldActivate(Event event) {
         return true;
     }
 }

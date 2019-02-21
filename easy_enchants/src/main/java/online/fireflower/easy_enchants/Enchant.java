@@ -8,7 +8,6 @@ import org.bukkit.event.Listener;
 
 public abstract class Enchant implements Listener {
 
-    public abstract boolean shouldProc(Event event);
-
+    public abstract boolean shouldActivate(Event event);
 
 }
