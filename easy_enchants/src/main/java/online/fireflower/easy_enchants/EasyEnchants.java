@@ -18,4 +18,5 @@ public class EasyEnchants extends JavaPlugin {
         EntityDamagedByEntityEnchant testEnchant = new EntityDamagedByEntityEnchant();
         enchantRegisterer.registerEvent(EntityDamageByEntityEvent.class, testEnchant, testEnchant);
     }
+
 }

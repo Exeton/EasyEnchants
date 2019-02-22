@@ -2,7 +2,6 @@ package online.fireflower.easy_enchants.enchant_registering;
 
 import online.fireflower.easy_enchants.EasyEnchants;
 import online.fireflower.easy_enchants.Enchant;
-import online.fireflower.easy_enchants.activation.IActivatedEnchantCuller;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventPriority;
@@ -10,7 +9,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredListener;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Set;
 
 public class EnchantRegisterer {

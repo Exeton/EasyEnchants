@@ -34,19 +34,23 @@ public class EnchantEventExecutor implements EventExecutor {
         if (!eventType.isAssignableFrom(event.getClass())) {
             return;
         }
+
+        fireEnchants(procedEnchantCuller.cullEnchants(getActivatedEnchants(event)), event);
+    }
+
+    public List<Enchant> getActivatedEnchants(Event event){
         LinkedList<Enchant> procedEnchants = new LinkedList<Enchant>();
         for (Pair<RegisteredListener, Enchant> listenerEnchantPair : listenersAndEnchants)
             if (listenerEnchantPair.getValue().shouldActivate(event))
                 procedEnchants.add(listenerEnchantPair.getValue());
 
-        //Bukkit.getLogger().info("Registered Enchants size: " + listenersAndEnchants.size());
-        //Bukkit.getLogger().info("Enchants to run size: " + procedEnchants.size());
-
-        List<Enchant> enchantsToExecute = procedEnchantCuller.cullEnchants(procedEnchants);
-        for (Pair<RegisteredListener, Enchant> listenerEnchantPair : listenersAndEnchants){
-
-            if (enchantsToExecute.contains(listenerEnchantPair.getValue()))
-                listenerEnchantPair.getKey().callEvent(event);
-        }
+        return procedEnchants;
     }
+
+    public void fireEnchants(List<Enchant> activatedEnchants, Event event) throws EventException {
+        for (Pair<RegisteredListener, Enchant> listenerEnchantPair : listenersAndEnchants)
+            if (activatedEnchants.contains(listenerEnchantPair.getValue()))
+                listenerEnchantPair.getKey().callEvent(event);
+    }
+
 }
