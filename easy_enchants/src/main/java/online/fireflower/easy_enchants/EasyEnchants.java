@@ -1,6 +1,8 @@
 package online.fireflower.easy_enchants;
 
-import online.fireflower.easy_enchants.enchant_parsing.BasicLoreParser;
+import online.fireflower.easy_enchants.enchant_parsing.BasicEnchantInfoParser;
+import online.fireflower.easy_enchants.enchant_parsing.BasicEnchantReadWriter;
+import online.fireflower.easy_enchants.enchant_parsing.IEnchantReadWriter;
 import online.fireflower.easy_enchants.enchant_registering.EnchantEventExecutor;
 import online.fireflower.easy_enchants.enchant_registering.EnchantRegisterer;
 import online.fireflower.easy_enchants.test_ingame.EntityDamagedByEntityEnchant;
@@ -16,27 +18,27 @@ import java.util.LinkedList;
 public class EasyEnchants extends JavaPlugin {
 
     public static EnchantRegisterer enchantRegisterer;
-    public static BasicLoreParser enchantReadWriter;
     private static HashMap<String, String> enchantKeyworkdsAndNames = new HashMap<>();
+    private static LinkedList<String> enchants = new LinkedList<>();
 
     @Override
     public void onEnable() {
 
-        EnchantEventExecutor.retriever = new EnchantInfoRetriever();
+        IEnchantReadWriter readWriter = new BasicEnchantReadWriter(new BasicEnchantInfoParser(enchants));
+        EnchantEventExecutor.retriever = new EnchantInfoRetriever(readWriter);
         enchantRegisterer = new EnchantRegisterer(this);
-        enchantReadWriter = new BasicLoreParser(new LinkedList<>());
 
+        //Code for adding an enchant
         EntityDamagedByEntityEnchant testEnchant = new EntityDamagedByEntityEnchant(ChatColor.GOLD + "EntityDamagedByEntityEnchant");
         enchantRegisterer.registerEvent(EntityDamageByEntityEvent.class, testEnchant, testEnchant);
-
         addEnchant("Damage",ChatColor.GOLD + "EntityDamagedByEntityEnchant");
 
-        this.getCommand("EasyEnchant").setExecutor(new EnchantApplicationCommand(enchantKeyworkdsAndNames));
+        this.getCommand("EasyEnchant").setExecutor(new EnchantApplicationCommand(enchantKeyworkdsAndNames, readWriter));
 
     }
 
     public static void addEnchant(String refferenceName, String name){
-        enchantReadWriter.enchants.add(name);
+        enchants.add(name);
         enchantKeyworkdsAndNames.put(refferenceName.toLowerCase(), name);
     }
 

@@ -59,11 +59,11 @@ public class EnchantEventExecutor implements EventExecutor {
             Enchant enchant = listenerEnchantPair.getValue();
             if (enchantNames.contains(enchant.name.toLowerCase()) && enchant.shouldActivate(event)){
                 procedEnchants.add(listenerEnchantPair.getValue());
-                Bukkit.getLogger().info("Firing enchant");
+                //Bukkit.getLogger().info("Firing enchant");
             }
             else{
-                Bukkit.getLogger().info("Not firing: " + enchant.name.toLowerCase());
-                Bukkit.getLogger().info("Available: " + String.join(" ", enchantNames));
+                //Bukkit.getLogger().info("Not firing: " + enchant.name.toLowerCase());
+                //Bukkit.getLogger().info("Available: " + String.join(" ", enchantNames));
             }
         }
 

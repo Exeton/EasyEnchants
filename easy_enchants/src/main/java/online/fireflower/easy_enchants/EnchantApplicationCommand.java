@@ -1,6 +1,7 @@
 package online.fireflower.easy_enchants;
 
 import online.fireflower.easy_enchants.enchant_parsing.EnchantInfo;
+import online.fireflower.easy_enchants.enchant_parsing.IEnchantReadWriter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -14,14 +15,16 @@ import java.util.HashMap;
 public class EnchantApplicationCommand implements CommandExecutor {
 
     HashMap<String, String> enchantKeyworkdsAndNames;
+    IEnchantReadWriter enchantReadWriter;
 
-    public EnchantApplicationCommand(HashMap<String, String> enchantKeyworkdsAndNames){
+    public EnchantApplicationCommand(HashMap<String, String> enchantKeyworkdsAndNames, IEnchantReadWriter enchantReadWriter){
         this.enchantKeyworkdsAndNames = enchantKeyworkdsAndNames;
+        this.enchantReadWriter = enchantReadWriter;
     }
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
-        if (args.length < 1)
+        if (args.length < 2)
             return false;
 
         if (!(commandSender instanceof Player)){
@@ -41,7 +44,7 @@ public class EnchantApplicationCommand implements CommandExecutor {
             }
         }
 
-        EasyEnchants.enchantReadWriter.applyEnchant(item, new EnchantInfo(name, Integer.parseInt(args[1])));
+        enchantReadWriter.addEnchant(item, new EnchantInfo(name, Integer.parseInt(args[1])));
         player.sendMessage(ChatColor.GREEN + "Enchant applied!");
 
         return true;
