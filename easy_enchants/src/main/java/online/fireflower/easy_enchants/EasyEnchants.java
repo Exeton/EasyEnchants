@@ -1,14 +1,18 @@
 package online.fireflower.easy_enchants;
 
+import online.fireflower.easy_enchants.commands.EnchantApplicationCommand;
+import online.fireflower.easy_enchants.enchant_execution.BasicEnchantCuller;
+import online.fireflower.easy_enchants.enchant_execution.BasicEnchantExecutor;
 import online.fireflower.easy_enchants.enchant_parsing.BasicEnchantInfoParser;
 import online.fireflower.easy_enchants.enchant_parsing.BasicEnchantReadWriter;
 import online.fireflower.easy_enchants.enchant_parsing.IEnchantReadWriter;
-import online.fireflower.easy_enchants.enchant_registering.EnchantEventExecutor;
+import online.fireflower.easy_enchants.enchant_execution.EnchantEventListener;
 import online.fireflower.easy_enchants.enchant_registering.EnchantRegisterer;
 import online.fireflower.easy_enchants.test_ingame.EntityDamagedByEntityEnchant;
 
 import org.bukkit.ChatColor;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.plugin.RegisteredListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
@@ -25,8 +29,9 @@ public class EasyEnchants extends JavaPlugin {
     public void onEnable() {
 
         IEnchantReadWriter readWriter = new BasicEnchantReadWriter(new BasicEnchantInfoParser(enchants));
-        EnchantEventExecutor.retriever = new EnchantInfoRetriever(readWriter);
-        enchantRegisterer = new EnchantRegisterer(this);
+        EnchantInfoRetriever enchantInfoRetriever = new EnchantInfoRetriever(readWriter);
+        BasicEnchantExecutor enchantExecutor = new BasicEnchantExecutor(new HashMap<Enchant, RegisteredListener>(), new BasicEnchantCuller());
+        enchantRegisterer = new EnchantRegisterer(enchantExecutor, enchantInfoRetriever, this);
 
         //Code for adding an enchant
         EntityDamagedByEntityEnchant testEnchant = new EntityDamagedByEntityEnchant(ChatColor.GOLD + "EntityDamagedByEntityEnchant");
@@ -34,7 +39,6 @@ public class EasyEnchants extends JavaPlugin {
         addEnchant("Damage",ChatColor.GOLD + "EntityDamagedByEntityEnchant");
 
         this.getCommand("EasyEnchant").setExecutor(new EnchantApplicationCommand(enchantKeyworkdsAndNames, readWriter));
-
     }
 
     public static void addEnchant(String refferenceName, String name){

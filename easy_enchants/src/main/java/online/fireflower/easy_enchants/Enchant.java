@@ -8,12 +8,11 @@ import org.bukkit.event.Listener;
 
 public abstract class Enchant implements Listener {
 
-    public String name;
+    public String displayName;
 
-    public Enchant(String name){
-        this.name = name;
+    public Enchant(String displayName){
+        this.displayName = displayName;
     }
 
     public abstract boolean shouldActivate(Event event);
-
 }

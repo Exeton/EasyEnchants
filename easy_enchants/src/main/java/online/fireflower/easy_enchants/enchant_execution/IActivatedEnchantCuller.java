@@ -1,4 +1,4 @@
-package online.fireflower.easy_enchants.activation;
+package online.fireflower.easy_enchants.enchant_execution;
 
 import online.fireflower.easy_enchants.Enchant;
 

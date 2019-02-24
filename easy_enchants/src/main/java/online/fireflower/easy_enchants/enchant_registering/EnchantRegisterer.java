@@ -2,6 +2,10 @@ package online.fireflower.easy_enchants.enchant_registering;
 
 import online.fireflower.easy_enchants.EasyEnchants;
 import online.fireflower.easy_enchants.Enchant;
+import online.fireflower.easy_enchants.EnchantInfoRetriever;
+import online.fireflower.easy_enchants.enchant_execution.BasicEnchantExecutor;
+import online.fireflower.easy_enchants.enchant_execution.EnchantEventListener;
+import online.fireflower.easy_enchants.enchant_execution.IEnchantExecutor;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventPriority;
@@ -14,18 +18,24 @@ import java.util.Set;
 public class EnchantRegisterer {
 
     private EasyEnchants main;
-    private HashMap<Class, EnchantEventExecutor> classesAndExecutors = new HashMap<>();
+    private HashMap<Class, EnchantEventListener> classesAndExecutors = new HashMap<>();
 
+    BasicEnchantExecutor enchantExecutor;
+    EnchantInfoRetriever enchantInfoRetriever;
 
-    public EnchantRegisterer(EasyEnchants easyEnchants){
+    public EnchantRegisterer(BasicEnchantExecutor enchantExecutor, EnchantInfoRetriever enchantInfoRetriever, EasyEnchants easyEnchants){
         this.main = easyEnchants;
+        this.enchantExecutor = enchantExecutor;
+        this.enchantInfoRetriever = enchantInfoRetriever;
     }
 
     public void registerEvent(Class<? extends Event> type, Enchant enchant, Listener listener){
-        EnchantEventExecutor executionWrapper = getExecutionWrapper(type);
+        EnchantEventListener executionWrapper = getExecutionWrapper(type);
 
-        for (RegisteredListener registeredListener : getRegisteredListeners(listener))
-            executionWrapper.registerEnchant(registeredListener, enchant);
+        for (RegisteredListener registeredListener : getRegisteredListeners(listener)){
+            executionWrapper.registerEnchant(enchant);
+            enchantExecutor.enchantsAndListeners.put(enchant, registeredListener);
+        }
     }
 
     private Set<RegisteredListener> getRegisteredListeners(Listener listener){
@@ -35,12 +45,12 @@ public class EnchantRegisterer {
 
     }
 
-    private EnchantEventExecutor getExecutionWrapper(Class<? extends Event> type){
+    private EnchantEventListener getExecutionWrapper(Class<? extends Event> type){
 
         if (classesAndExecutors.containsKey(type))
             return classesAndExecutors.get(type);
 
-        EnchantEventExecutor wrapper = new EnchantEventExecutor(clonedProcedEnchants -> clonedProcedEnchants, type);
+        EnchantEventListener wrapper = new EnchantEventListener(enchantInfoRetriever, enchantExecutor, type);
         classesAndExecutors.put(type, wrapper);
         Bukkit.getPluginManager().registerEvent(type, new DummyListener(), EventPriority.NORMAL, wrapper, main);
         return wrapper;
