@@ -3,7 +3,7 @@ Used to create custom enchants
 
 ## Creating an Enchant
 ### Enchant
-The abstract Enchant class is used to create enchants which fire on events. You will need to implement shouldActivate(Event event) and getType(). If you don't want to implement getType, you can use GivenTypeEnchant which allows you to pass it in to the enchant as a constructor paramater.
+The abstract Enchant class is used to create enchants which fire on events. You will need to implement shouldActivate(Event event) and getType(). If you don't want to implement getType, you can use GivenTypeEnchant which allows you to pass the enchantType in as a constructor paramater.
 To add an event to the class, add a method with the @EventHandeler annotation. The Enchant class already implements listener so you don't need to.
 
 <br>
