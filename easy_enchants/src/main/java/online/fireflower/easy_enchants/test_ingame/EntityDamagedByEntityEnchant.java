@@ -8,6 +8,10 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public class EntityDamagedByEntityEnchant extends Enchant {
 
+    public EntityDamagedByEntityEnchant(String name) {
+        super(name);
+    }
+
     @EventHandler
     public void handleEvent(EntityDamageByEntityEvent event){
         Bukkit.getLogger().info("EVENT fired!!");

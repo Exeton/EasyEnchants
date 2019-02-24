@@ -3,3 +3,9 @@ version: 1.0
 author: Fire
 description: Used for making enchants
 main: online.fireflower.easy_enchants.EasyEnchants
+commands:
+  easyEnchant:
+    description: Used to Enchant
+    permission: EasyEnchants.EasyEnchant
+    permission-message: You need permission EasyEnchants.EasyEnchant
+    usage: /EasyEnchant refferenceName level

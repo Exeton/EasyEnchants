@@ -1,9 +1,13 @@
 package online.fireflower.easy_enchants.enchant_parsing;
 
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class BasicLoreParser implements ILoreParser{
+public class BasicLoreParser implements ILoreReadWriter {
 
     public List<String> enchants;
 
@@ -22,6 +26,18 @@ public class BasicLoreParser implements ILoreParser{
         }
 
         return enchantInfoList;
+    }
+
+    @Override
+    public void applyEnchant(ItemStack itemStack, EnchantInfo enchantInfo) {
+
+        ItemMeta meta = itemStack.getItemMeta();
+        List<String> lore = meta.getLore();
+        if (lore == null)
+            lore = new ArrayList<>();
+        lore.add(enchantInfo.name + " " + enchantInfo.level);
+        meta.setLore(lore);
+        itemStack.setItemMeta(meta);
     }
 
     public EnchantInfo parse(String loreLine){

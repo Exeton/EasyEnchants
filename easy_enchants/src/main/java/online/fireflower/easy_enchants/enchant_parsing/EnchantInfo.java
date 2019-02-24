@@ -2,8 +2,8 @@ package online.fireflower.easy_enchants.enchant_parsing;
 
 public class EnchantInfo {
 
-    String name;
-    int level;
+    public String name;
+    public int level;
 
     public EnchantInfo(String name, int level){
         this.name = name;
