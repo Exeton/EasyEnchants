@@ -1,6 +1,7 @@
 package online.fireflower.easy_enchants.test_ingame;
 
 import online.fireflower.easy_enchants.Enchant;
+import online.fireflower.easy_enchants.EnchantType;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
@@ -20,5 +21,10 @@ public class EntityDamagedByEntityEnchant extends Enchant {
     @Override
     public boolean shouldActivate(Event event) {
         return true;
+    }
+
+    @Override
+    public EnchantType getType() {
+        return EnchantType.ITEM_ENCHANT;
     }
 }

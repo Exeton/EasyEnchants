@@ -1,4 +1,4 @@
-package online.fireflower.easy_enchants;
+package online.fireflower.easy_enchants.enchant_parsing;
 
 import online.fireflower.easy_enchants.enchant_parsing.EnchantInfo;
 import online.fireflower.easy_enchants.enchant_parsing.IEnchantReadWriter;

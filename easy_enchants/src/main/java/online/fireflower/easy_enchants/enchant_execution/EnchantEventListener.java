@@ -1,7 +1,8 @@
 package online.fireflower.easy_enchants.enchant_execution;
 
 import online.fireflower.easy_enchants.Enchant;
-import online.fireflower.easy_enchants.EnchantInfoRetriever;
+import online.fireflower.easy_enchants.EnchantType;
+import online.fireflower.easy_enchants.enchant_parsing.EnchantInfoRetriever;
 import online.fireflower.easy_enchants.enchant_parsing.EnchantInfo;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
@@ -25,6 +26,9 @@ public class EnchantEventListener implements EventExecutor {
     private IEnchantExecutor enchantExecutor;
     private Class eventType;
 
+    boolean checkArmor = false;
+    boolean checkItem = false;
+
     public EnchantEventListener(EnchantInfoRetriever enchantInfoRetriever, IEnchantExecutor enchantExecutor, Class eventType){
         this.enchantInfoRetriever = enchantInfoRetriever;
         this.enchantExecutor = enchantExecutor;
@@ -33,6 +37,10 @@ public class EnchantEventListener implements EventExecutor {
 
     public void registerEnchant(Enchant enchant){
         namesAndEnchants.put(enchant.displayName.toLowerCase(), enchant);
+        if (enchant.getType() == EnchantType.ARMOR_ENCHANT)
+            checkArmor = true;
+        if (enchant.getType() == EnchantType.ITEM_ENCHANT)
+            checkItem = true;
     }
 
     //Takes inputted listener is a dummy listener and is not used.
@@ -43,8 +51,16 @@ public class EnchantEventListener implements EventExecutor {
         }
 
         Player player = getPlayer(event);
-        if (player != null)
-            enchantExecutor.execute(event, getActivatedEnchants(enchantInfoRetriever.getHeldItemEnchants(player)));
+        if (player == null)
+            return;
+
+        List<EnchantInfo> enchantInfoList = new LinkedList<>();
+        if (checkItem)
+            enchantInfoList.addAll(enchantInfoRetriever.getHeldItemEnchants(player));
+        if (checkArmor)
+            enchantInfoList.addAll(enchantInfoRetriever.getArmorEnchants(player));
+
+        enchantExecutor.execute(event, getActivatedEnchants(enchantInfoList));
     }
 
     public List<Enchant> getActivatedEnchants(List<EnchantInfo> itemEnchants){

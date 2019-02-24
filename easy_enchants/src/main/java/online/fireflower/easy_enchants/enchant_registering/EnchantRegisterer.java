@@ -2,10 +2,9 @@ package online.fireflower.easy_enchants.enchant_registering;
 
 import online.fireflower.easy_enchants.EasyEnchants;
 import online.fireflower.easy_enchants.Enchant;
-import online.fireflower.easy_enchants.EnchantInfoRetriever;
+import online.fireflower.easy_enchants.enchant_parsing.EnchantInfoRetriever;
 import online.fireflower.easy_enchants.enchant_execution.BasicEnchantExecutor;
 import online.fireflower.easy_enchants.enchant_execution.EnchantEventListener;
-import online.fireflower.easy_enchants.enchant_execution.IEnchantExecutor;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventPriority;
