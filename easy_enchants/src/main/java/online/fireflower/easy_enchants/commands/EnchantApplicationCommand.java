@@ -14,12 +14,14 @@ import java.util.HashMap;
 
 public class EnchantApplicationCommand implements CommandExecutor {
 
+    HashMap<String, String> lowercaseEquipableKeywordsAndNames;
     HashMap<String, String> lowercaseEnchantKeyworkdsAndNames;
     IEnchantReadWriter enchantReadWriter;
 
-    public EnchantApplicationCommand(HashMap<String, String> lowercaseEnchantKeyworkdsAndNames, IEnchantReadWriter enchantReadWriter){
+    public EnchantApplicationCommand(HashMap<String, String> lowercaseEnchantKeyworkdsAndNames, HashMap<String, String> lowercaseEquipableKeywordsAndNames, IEnchantReadWriter enchantReadWriter){
         this.lowercaseEnchantKeyworkdsAndNames = lowercaseEnchantKeyworkdsAndNames;
         this.enchantReadWriter = enchantReadWriter;
+        this.lowercaseEquipableKeywordsAndNames = lowercaseEquipableKeywordsAndNames;
     }
 
     @Override
@@ -36,12 +38,18 @@ public class EnchantApplicationCommand implements CommandExecutor {
         ItemStack item = player.getItemInHand();
 
         String name = lowercaseEnchantKeyworkdsAndNames.get(args[0].toLowerCase());
+        if (name == null)
+            name = lowercaseEquipableKeywordsAndNames.get(args[0].toLowerCase());
+
         if (name == null){
-            name = "Null";
-            Bukkit.getLogger().info("Could not find enchant: " + args[0]);
+            player.sendMessage(ChatColor.YELLOW + "Could not find enchant: " + args[0]);
             for (String key : lowercaseEnchantKeyworkdsAndNames.keySet()){
-                Bukkit.getLogger().info("Available Enchant: " + key);
+                player.sendMessage(ChatColor.YELLOW + "Available Enchant: " + key);
             }
+            for (String key : lowercaseEquipableKeywordsAndNames.keySet()){
+                player.sendMessage(ChatColor.YELLOW + "Available Equipable: " + key);
+            }
+            return true;
         }
 
         enchantReadWriter.addEnchant(item, new EnchantInfo(name, Integer.parseInt(args[1])));

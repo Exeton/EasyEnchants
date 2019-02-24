@@ -1,13 +1,15 @@
 package online.fireflower.easy_enchants.test_ingame;
 
-import online.fireflower.easy_enchants.enchant_types.ArmorEnchant;
+import online.fireflower.easy_enchants.enchant_types.Enchant;
+import online.fireflower.easy_enchants.enchant_types.EnchantType;
+import online.fireflower.easy_enchants.enchant_types.IEquipable;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-public class DefenseArmor extends ArmorEnchant {
+public class DefenseArmor extends Enchant implements IEquipable {
     public DefenseArmor(String displayName) {
         super(displayName);
     }
@@ -18,7 +20,7 @@ public class DefenseArmor extends ArmorEnchant {
     }
 
     @Override
-    public void onEquip(Player player) {
+    public void onEquip(Player player, int level) {
         player.sendMessage("Equiped");
     }
 
@@ -30,5 +32,10 @@ public class DefenseArmor extends ArmorEnchant {
     @Override
     public boolean shouldActivate(Event event) {
         return true;
+    }
+
+    @Override
+    public EnchantType getType() {
+        return EnchantType.ARMOR_ENCHANT;
     }
 }

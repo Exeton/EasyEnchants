@@ -3,22 +3,19 @@ package online.fireflower.easy_enchants;
 import libs.com.codingforcookies.armorequip.ArmorEquipEvent;
 import online.fireflower.easy_enchants.enchant_parsing.EnchantInfo;
 import online.fireflower.easy_enchants.enchant_parsing.IEnchantReadWriter;
-import online.fireflower.easy_enchants.enchant_types.ArmorEnchant;
-import online.fireflower.easy_enchants.enchant_types.Enchant;
-import org.bukkit.Bukkit;
+import online.fireflower.easy_enchants.enchant_types.IEquipable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 
 public class EnchantedArmorEquipHandeler implements Listener {
 
     IEnchantReadWriter enchantReadWriter;
-    HashMap<String, Enchant> enchants;
+    HashMap<String, IEquipable> enchants;
 
-    public EnchantedArmorEquipHandeler(IEnchantReadWriter readWriter, HashMap<String, Enchant> enchants){
+    public EnchantedArmorEquipHandeler(IEnchantReadWriter readWriter, HashMap<String, IEquipable> enchants){
         this.enchantReadWriter = readWriter;
         this.enchants = enchants;
     }
@@ -30,26 +27,13 @@ public class EnchantedArmorEquipHandeler implements Listener {
 
         Player player = event.getPlayer();
 
-        if (event.getOldArmorPiece() != null){
-            for (EnchantInfo enchantInfo : enchantReadWriter.readItem(event.getOldArmorPiece())){
-                Enchant enchant = enchants.get(enchantInfo.name);
-                if (enchant instanceof ArmorEnchant){
-                    ArmorEnchant armorEnchant = (ArmorEnchant)enchant;
-                    armorEnchant.onUnequip(player);
-                }
-            }
-        }
+        if (event.getOldArmorPiece() != null)
+            for (EnchantInfo enchantInfo : enchantReadWriter.readItem(event.getOldArmorPiece()))
+                enchants.get(enchantInfo.name).onUnequip(player);
 
-        ItemStack item = event.getNewArmorPiece();
-        if (item != null){
-            for (EnchantInfo enchantInfo : enchantReadWriter.readItem(item)){
-                Enchant enchant = enchants.get(enchantInfo.name);
-                if (enchant instanceof ArmorEnchant){
-                    ArmorEnchant armorEnchant = (ArmorEnchant)enchant;
-                    armorEnchant.onEquip(player);
-                }
-            }
-        }
+        if (event.getNewArmorPiece() != null)
+            for (EnchantInfo enchantInfo : enchantReadWriter.readItem(event.getNewArmorPiece()))
+                enchants.get(enchantInfo.name).onEquip(player, enchantInfo.level);
 
     }
 
