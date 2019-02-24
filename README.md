@@ -113,17 +113,17 @@ Now that you've created your enchants, you have to register them.
 
 Just an enchant
 ```java
-        EntityDamagedByEntityEnchant testEnchant = new EntityDamagedByEntityEnchant(ChatColor.GOLD + "EntityDamagedByEntityEnchant");
-        EasyEnchants.registerEnchant("Damage", EntityDamageByEntityEvent.class, testEnchant);
+EntityDamagedByEntityEnchant testEnchant = new EntityDamagedByEntityEnchant(ChatColor.GOLD + "EntityDamagedByEntityEnchant");
+EasyEnchants.registerEnchant("Damage", EntityDamageByEntityEvent.class, testEnchant);
 ```
 
 Just an equipable
 ```java
-        EasyEnchants.registerEquipable("Res", ChatColor.GREEN + "Resistance", new ArmorEffectEnchant(PotionEffectType.DAMAGE_RESISTANCE));
+EasyEnchants.registerEquipable("Res", ChatColor.GREEN + "Resistance", new ArmorEffectEnchant(PotionEffectType.DAMAGE_RESISTANCE));
 ```
 
 Equipable and enchant
 ```java
-        DefenseArmor defenseArmor = new DefenseArmor(ChatColor.RED + "DefensiveEnchant");
-        EasyEnchants.registerEnchantAndEquipable("Defense", EntityDamageByEntityEvent.class, defenseArmor, defenseArmor);
+DefenseArmor defenseArmor = new DefenseArmor(ChatColor.RED + "DefensiveEnchant");
+EasyEnchants.registerEnchantAndEquipable("Defense", EntityDamageByEntityEvent.class, defenseArmor, defenseArmor);
 ```
