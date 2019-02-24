@@ -104,6 +104,7 @@ To create an equipable which yeilds a potion effect, create a new instance of Ar
 Now that you've created your enchants, you have to register them.
 
 <br>
+
 Just an enchant
 ```java
         EntityDamagedByEntityEnchant testEnchant = new EntityDamagedByEntityEnchant(ChatColor.GOLD + "EntityDamagedByEntityEnchant");
