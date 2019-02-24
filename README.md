@@ -48,7 +48,7 @@ Enchants must use events that have the methods getPlayer() or getEntity(). Note 
 
 <br>
 
-**Important: Because Event.getEntity() is used to get the player, having an enchant listen to EntityDamagedByEntity will cause the event to fire when defending player has those enchants. Use PlayerDamageEntityEvent** 
+**Important: Because Event.getEntity() is used to get the player, having an enchant listen to EntityDamagedByEntity will cause the event to fire when defending player has those enchants. Use PlayerDamageEntityEvent instead.** 
 
 ### IEquipable
 Equipables are enchants that listen for when an armor piece is equipped / unequipped. You can implement this interface to add equip and unequip functionallity to armor. If you want to handle equiping and an event in the same class, you'll need to extend Enchant and implement IEquipable.
