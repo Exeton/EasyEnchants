@@ -122,7 +122,7 @@ Just an equipable
 EasyEnchants.registerEquipable("Res", ChatColor.GREEN + "Resistance", new ArmorEffectEnchant(PotionEffectType.DAMAGE_RESISTANCE));
 ```
 
-Equipable and enchant
+Equipable and enchant. Note: You can use this to pass in two different classes (an enchant class and an equipable class). Doing this allows you to register an equipable using the same name as the enchant causing both the equipable and enchant code to work under the same name on an itemstack. This is useful if you want to create an enchant which has a potion equip effect, which can be done by passing in an enchant class and a ArmorEffectEnchant.
 ```java
 DefenseArmor defenseArmor = new DefenseArmor(ChatColor.RED + "DefensiveEnchant");
 EasyEnchants.registerEnchantAndEquipable("Defense", EntityDamageByEntityEvent.class, defenseArmor, defenseArmor);
