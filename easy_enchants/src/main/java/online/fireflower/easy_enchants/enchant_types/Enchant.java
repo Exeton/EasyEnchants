@@ -1,10 +1,7 @@
-package online.fireflower.easy_enchants;
+package online.fireflower.easy_enchants.enchant_types;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
-
-
-//Todo: Move the event state and info like name, etc. out of the same object.
 
 public abstract class Enchant implements Listener {
 

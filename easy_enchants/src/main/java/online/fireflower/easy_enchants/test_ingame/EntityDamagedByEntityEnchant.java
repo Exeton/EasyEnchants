@@ -1,7 +1,7 @@
 package online.fireflower.easy_enchants.test_ingame;
 
-import online.fireflower.easy_enchants.Enchant;
-import online.fireflower.easy_enchants.EnchantType;
+import online.fireflower.easy_enchants.enchant_types.Enchant;
+import online.fireflower.easy_enchants.enchant_types.EnchantType;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;

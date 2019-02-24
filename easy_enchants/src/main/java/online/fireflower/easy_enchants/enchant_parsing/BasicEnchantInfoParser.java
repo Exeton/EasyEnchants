@@ -1,10 +1,5 @@
 package online.fireflower.easy_enchants.enchant_parsing;
 
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class BasicEnchantInfoParser implements IEnchantInfoParser {
@@ -18,11 +13,8 @@ public class BasicEnchantInfoParser implements IEnchantInfoParser {
     @Override
     public EnchantInfo getEnchantInfo(String enchantString) {
 
-        enchantString = enchantString.toLowerCase();
-
         //ToDO: Make sure to search longest to shortest to prevent errors.
         for (String enchant : enchants){
-            enchant = enchant.toLowerCase();
             if (enchantString.startsWith(enchant)){
 
                 if (enchantString.length() <= enchant.length() + 1)

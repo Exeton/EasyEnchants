@@ -1,7 +1,7 @@
 package online.fireflower.easy_enchants.enchant_registering;
 
 import online.fireflower.easy_enchants.EasyEnchants;
-import online.fireflower.easy_enchants.Enchant;
+import online.fireflower.easy_enchants.enchant_types.Enchant;
 import online.fireflower.easy_enchants.enchant_parsing.EnchantInfoRetriever;
 import online.fireflower.easy_enchants.enchant_execution.BasicEnchantExecutor;
 import online.fireflower.easy_enchants.enchant_execution.EnchantEventListener;

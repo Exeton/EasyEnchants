@@ -14,11 +14,11 @@ import java.util.HashMap;
 
 public class EnchantApplicationCommand implements CommandExecutor {
 
-    HashMap<String, String> enchantKeyworkdsAndNames;
+    HashMap<String, String> lowercaseEnchantKeyworkdsAndNames;
     IEnchantReadWriter enchantReadWriter;
 
-    public EnchantApplicationCommand(HashMap<String, String> enchantKeyworkdsAndNames, IEnchantReadWriter enchantReadWriter){
-        this.enchantKeyworkdsAndNames = enchantKeyworkdsAndNames;
+    public EnchantApplicationCommand(HashMap<String, String> lowercaseEnchantKeyworkdsAndNames, IEnchantReadWriter enchantReadWriter){
+        this.lowercaseEnchantKeyworkdsAndNames = lowercaseEnchantKeyworkdsAndNames;
         this.enchantReadWriter = enchantReadWriter;
     }
 
@@ -35,11 +35,11 @@ public class EnchantApplicationCommand implements CommandExecutor {
         Player player = (Player)commandSender;
         ItemStack item = player.getItemInHand();
 
-        String name = enchantKeyworkdsAndNames.get(args[0].toLowerCase());
+        String name = lowercaseEnchantKeyworkdsAndNames.get(args[0].toLowerCase());
         if (name == null){
             name = "Null";
-            Bukkit.getLogger().info("Could not find enchant: " + args[0].toLowerCase());
-            for (String key : enchantKeyworkdsAndNames.keySet()){
+            Bukkit.getLogger().info("Could not find enchant: " + args[0]);
+            for (String key : lowercaseEnchantKeyworkdsAndNames.keySet()){
                 Bukkit.getLogger().info("Available Enchant: " + key);
             }
         }

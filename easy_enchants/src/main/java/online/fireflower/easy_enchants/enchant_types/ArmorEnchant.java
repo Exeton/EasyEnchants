@@ -1,4 +1,4 @@
-package online.fireflower.easy_enchants;
+package online.fireflower.easy_enchants.enchant_types;
 
 
 import org.bukkit.entity.Player;
