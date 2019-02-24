@@ -13,7 +13,7 @@ import online.fireflower.easy_enchants.enchant_types.ArmorEffectEnchant;
 import online.fireflower.easy_enchants.enchant_types.Enchant;
 import online.fireflower.easy_enchants.enchant_types.IEquipable;
 import online.fireflower.easy_enchants.test_ingame.DefenseArmor;
-import online.fireflower.easy_enchants.test_ingame.EntityDamagedByEntityEnchant;
+import online.fireflower.easy_enchants.test_ingame.AttackEnchant;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -47,8 +47,8 @@ public class EasyEnchants extends JavaPlugin {
         enchantRegisterer = new EnchantRegisterer(enchantExecutor, enchantInfoRetriever, this);
 
         //Code for adding an enchant
-        EntityDamagedByEntityEnchant testEnchant = new EntityDamagedByEntityEnchant(ChatColor.GOLD + "EntityDamagedByEntityEnchant");
-        registerEnchant("Damage", EntityDamageByEntityEvent.class, testEnchant);
+        AttackEnchant testEnchant = new AttackEnchant(ChatColor.GOLD + "AttackEnchant");
+        registerEnchant("Damage", PlayerDamageEntityEvent.class, testEnchant);
 
         DefenseArmor defenseArmor = new DefenseArmor(ChatColor.RED + "DefensiveEnchant");
         registerEnchantAndEquipable("Defense", EntityDamageByEntityEvent.class, defenseArmor, defenseArmor);
@@ -60,9 +60,9 @@ public class EasyEnchants extends JavaPlugin {
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new ArmorListener(new LinkedList<>()), this);
 
-
         IEnchantReadWriter equipableReadWriter = new BasicEnchantReadWriter(new BasicEnchantInfoParser(equipables));
         pluginManager.registerEvents(new EnchantedArmorEquipHandeler(equipableReadWriter, namesAndEquipables), this);
+        pluginManager.registerEvents(new EntityDamagedByEntityListener(), this);
 
     }
 

@@ -1,21 +1,21 @@
 package online.fireflower.easy_enchants.test_ingame;
 
+import online.fireflower.easy_enchants.PlayerDamageEntityEvent;
 import online.fireflower.easy_enchants.enchant_types.Enchant;
 import online.fireflower.easy_enchants.enchant_types.EnchantType;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-public class EntityDamagedByEntityEnchant extends Enchant {
+public class AttackEnchant extends Enchant {
 
-    public EntityDamagedByEntityEnchant(String name) {
+    public AttackEnchant(String name) {
         super(name);
     }
 
     @EventHandler
-    public void handleEvent(EntityDamageByEntityEvent event){
-        Bukkit.getLogger().info("EVENT fired!!");
+    public void handleEvent(PlayerDamageEntityEvent event){
+        event.event.setDamage(10);
     }
 
     @Override
