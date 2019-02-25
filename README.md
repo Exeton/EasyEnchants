@@ -4,7 +4,7 @@
 EasyEnchants is a plugin designed to make creating custom enchanchants eaiser. EasyEnchants provides two methods for adding enchant functionallity: An event based system and an IEquipable interface, which provides functionallity for when armor is equiped / unequiped.
 
 ## Creating an enchant
-Creating an enchant is simple. Extend Enchant or GivenTypeEnchant (the latter allows you to specify the EnchantType upon object construction as opposed to having to implement EnchantType.getType() in Enchant. ![ExampleEnchant](https://github.com/Exeton/EasyEnchants/blob/master/easy_enchants/src/main/java/online/fireflower/easy_enchants/test_ingame/AttackEnchant.java).
+Creating an enchant is simple. Extend Enchant or GivenTypeEnchant (the latter allows you to specify the EnchantType upon object construction as opposed to having to implement EnchantType.getType() in Enchant. [ExampleEnchant](https://github.com/Exeton/EasyEnchants/blob/master/easy_enchants/src/main/java/online/fireflower/easy_enchants/test_ingame/AttackEnchant.java).
 
 **Note: You can only use one event per Enchant. This may change in the future. **
 
@@ -21,8 +21,8 @@ You cannot currently add your own IEnchantExecutor, however that is a planned fe
 
 Using IEquipable, you gain access to an onEquip(Player) and an onUnequip(Player) method. IEquipable can be used in conjunction with extending Enchant. You can also register an IEquipable and Enchant class under the same name, providing more flexibility.
 
-![Standalone IEquipable](https://github.com/Exeton/EasyEnchants/blob/master/easy_enchants/src/main/java/online/fireflower/easy_enchants/enchant_types/ArmorEffectEnchant.java)
-![Enchant and IEquipable](https://github.com/Exeton/EasyEnchants/blob/master/easy_enchants/src/main/java/online/fireflower/easy_enchants/test_ingame/DefenseArmor.java)
+[Standalone IEquipable](https://github.com/Exeton/EasyEnchants/blob/master/easy_enchants/src/main/java/online/fireflower/easy_enchants/enchant_types/ArmorEffectEnchant.java)
+[Enchant and IEquipable](https://github.com/Exeton/EasyEnchants/blob/master/easy_enchants/src/main/java/online/fireflower/easy_enchants/test_ingame/DefenseArmor.java)
 
 ## Creating potion effect equipables
 To create an equipable which yeilds a potion effect, create a new instance of ArmorEffectEnchant and register it as an equipable.
