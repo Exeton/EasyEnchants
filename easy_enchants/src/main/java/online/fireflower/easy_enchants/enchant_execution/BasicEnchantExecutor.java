@@ -24,7 +24,8 @@ public class BasicEnchantExecutor implements IEnchantExecutor {
             enchants = enchantCuller.cullEnchants(enchants);
             //Bukkit.getLogger().info("Firing x enchants: " + enchants.size());
             for (Enchant enchant : enchants)
-                enchantsAndListeners.get(enchant).callEvent(event);
+                if (enchant.shouldActivate(event))
+                    enchantsAndListeners.get(enchant).callEvent(event);
         }catch (Exception e){
             e.printStackTrace();
         }
