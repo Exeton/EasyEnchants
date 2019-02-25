@@ -17,7 +17,7 @@ You cannot currently add your own IEnchantExecutor, however that is a planned fe
 
 
 
-### IEquipable
+## IEquipable
 
 Using IEquipable, you gain access to an onEquip(Player) and an onUnequip(Player) method. IEquipable can be used in conjunction with extending Enchant. You can also register an IEquipable and Enchant class under the same name, providing more flexibility.
 
@@ -48,5 +48,5 @@ EasyEnchants.registerEnchantAndEquipable("Defense", EntityDamageByEntityEvent.cl
 
 
 
-Equipable and enchant. **Note: You can use this to pass in two different classes (an enchant class and an equipable class). Doing this allows you to register an equipable using the same name as the enchant causing both the equipable and enchant code to work under the same name on an itemstack. This is useful if you want to create an enchant which has a potion equip effect, which can be done by passing in an enchant class and a ArmorEffectEnchant.**
+**Note: You can use registerEnchantAndEquipable and pass in two different classes (an enchant class and an equipable class). Doing this allows you to register an equipable using the same name as the enchant causing both the equipable and enchant code to work under the same name on an itemstack. This is useful if you want to create an enchant which has a potion equip effect, which can be done by passing in an enchant class and a ArmorEffectEnchant.**
 
