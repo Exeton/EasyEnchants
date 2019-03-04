@@ -7,6 +7,6 @@ import java.util.List;
 public interface IEnchantReadWriter {
 
     List<EnchantInfo> readItem(ItemStack item);
-    void addEnchant(ItemStack item, EnchantInfo enchantInfo);
-
+    void setEnchant(ItemStack item, EnchantInfo enchantInfo);
+    void removeEnchant(ItemStack item, String name);
 }

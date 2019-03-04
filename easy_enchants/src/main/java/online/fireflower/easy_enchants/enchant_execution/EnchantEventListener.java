@@ -1,5 +1,6 @@
 package online.fireflower.easy_enchants.enchant_execution;
 
+import javafx.util.Pair;
 import online.fireflower.easy_enchants.enchant_types.Enchant;
 import online.fireflower.easy_enchants.enchant_types.EnchantType;
 import online.fireflower.easy_enchants.enchant_parsing.EnchantInfoRetriever;
@@ -60,21 +61,23 @@ public class EnchantEventListener implements EventExecutor {
         if (checkArmor)
             enchantInfoList.addAll(enchantInfoRetriever.getArmorEnchants(player));
 
-        enchantExecutor.execute(event, getActivatedEnchants(enchantInfoList));
+        Pair<List<EnchantInfo>, List<Enchant>> activatedEnchants = getActivatedEnchants(enchantInfoList);
+        enchantExecutor.execute(event, activatedEnchants.getValue(), activatedEnchants.getKey());
     }
 
-    public List<Enchant> getActivatedEnchants(List<EnchantInfo> itemEnchants){
+    public Pair<List<EnchantInfo>, List<Enchant>> getActivatedEnchants(List<EnchantInfo> itemEnchants){
 
+        LinkedList<EnchantInfo> enchantInfoList = new LinkedList<>();
         LinkedList<Enchant> enchantsOnItem = new LinkedList<>();
+
         for (EnchantInfo enchantInfo : itemEnchants){
             Enchant enchant = namesAndEnchants.get(enchantInfo.name);
-            if (enchant != null)
+            if (enchant != null){
                 enchantsOnItem.add(enchant);
-            else{
-                Bukkit.getLogger().info("Could not get enchant: " + enchantInfo.name);
+                enchantInfoList.add(enchantInfo);
             }
         }
-        return enchantsOnItem;
+        return new Pair<>(enchantInfoList, enchantsOnItem);
     }
 
     public Player getPlayer(Event event){

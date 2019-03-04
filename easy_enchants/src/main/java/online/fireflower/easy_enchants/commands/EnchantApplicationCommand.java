@@ -52,7 +52,7 @@ public class EnchantApplicationCommand implements CommandExecutor {
             return true;
         }
 
-        enchantReadWriter.addEnchant(item, new EnchantInfo(name, Integer.parseInt(args[1])));
+        enchantReadWriter.setEnchant(item, new EnchantInfo(name, Integer.parseInt(args[1])));
         player.sendMessage(ChatColor.GREEN + "Enchant applied!");
 
         return true;

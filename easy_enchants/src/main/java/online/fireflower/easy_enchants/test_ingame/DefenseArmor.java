@@ -1,5 +1,6 @@
 package online.fireflower.easy_enchants.test_ingame;
 
+import online.fireflower.easy_enchants.enchant_parsing.EnchantInfo;
 import online.fireflower.easy_enchants.enchant_types.Enchant;
 import online.fireflower.easy_enchants.enchant_types.EnchantType;
 import online.fireflower.easy_enchants.enchant_types.IEquipable;
@@ -15,8 +16,8 @@ public class DefenseArmor extends Enchant implements IEquipable {
     }
 
     @EventHandler
-    public void onEvent(EntityDamageByEntityEvent event){
-        Bukkit.getLogger().info("Event fired");
+    public void onEvent(EntityDamageByEntityEvent event, EnchantInfo enchantInfo){
+        Bukkit.getLogger().info("Event fired: " + enchantInfo.level);
     }
 
     @Override

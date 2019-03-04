@@ -7,10 +7,12 @@ import online.fireflower.easy_enchants.enchant_execution.BasicEnchantExecutor;
 import online.fireflower.easy_enchants.enchant_execution.EnchantEventListener;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredListener;
 
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -29,19 +31,15 @@ public class EnchantRegisterer {
     }
 
     public void registerEvent(Class<? extends Event> type, Enchant enchant, Listener listener){
+
         EnchantEventListener executionWrapper = getExecutionWrapper(type);
 
-        for (RegisteredListener registeredListener : getRegisteredListeners(listener)){
-            executionWrapper.registerEnchant(enchant);
-            enchantExecutor.enchantsAndListeners.put(enchant, registeredListener);
-        }
-    }
+        executionWrapper.registerEnchant(enchant);
+        enchantExecutor.enchantsAndListeners.put(enchant, getEnchantRegisteredListener(listener));
 
-    private Set<RegisteredListener> getRegisteredListeners(Listener listener){
+        //for (RegisteredListener registeredListener : getRegisteredListeners(listener)){
 
-        //Although this is unsafe, only enchants with one method should
-        return main.getPluginLoader().createRegisteredListeners(listener, main).values().stream().findFirst().get();
-
+        //}
     }
 
     private EnchantEventListener getExecutionWrapper(Class<? extends Event> type){
@@ -55,4 +53,27 @@ public class EnchantRegisterer {
         return wrapper;
     }
 
+    //Methods should take in class extending Event and an EnchantInfo.
+    private Set<RegisteredListener> getRegisteredListeners(Listener listener){
+
+        //Use new Registered Listener
+        return main.getPluginLoader().createRegisteredListeners(listener, main).values().stream().findFirst().get();
+    }
+
+
+    public EnchantRegisteredListener getEnchantRegisteredListener(Listener listener){
+        for (Method method : listener.getClass().getMethods()){
+
+            if (method.getAnnotation(EventHandler.class) == null)
+                continue;
+
+            if (method.getParameterCount() != 2)
+                continue;
+
+            return new EnchantRegisteredListener(listener, method);
+
+        }
+
+        return null;
+    }
 }

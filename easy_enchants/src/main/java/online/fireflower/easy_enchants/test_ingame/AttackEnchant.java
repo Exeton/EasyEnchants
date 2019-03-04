@@ -1,6 +1,7 @@
 package online.fireflower.easy_enchants.test_ingame;
 
 import online.fireflower.easy_enchants.PlayerDamageEntityEvent;
+import online.fireflower.easy_enchants.enchant_parsing.EnchantInfo;
 import online.fireflower.easy_enchants.enchant_types.Enchant;
 import online.fireflower.easy_enchants.enchant_types.EnchantType;
 import org.bukkit.Bukkit;
@@ -14,8 +15,8 @@ public class AttackEnchant extends Enchant {
     }
 
     @EventHandler
-    public void handleEvent(PlayerDamageEntityEvent event){
-        event.event.setDamage(10);
+    public void handleEvent(PlayerDamageEntityEvent event, EnchantInfo enchantInfo){
+        event.event.setDamage(10 * enchantInfo.level);
     }
 
     @Override

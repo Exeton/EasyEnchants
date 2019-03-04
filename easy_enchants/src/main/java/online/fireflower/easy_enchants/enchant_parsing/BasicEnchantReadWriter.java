@@ -34,7 +34,9 @@ public class BasicEnchantReadWriter implements IEnchantReadWriter {
     }
 
     @Override
-    public void addEnchant(ItemStack item, EnchantInfo enchantInfo) {
+    public void setEnchant(ItemStack item, EnchantInfo enchantInfo) {
+
+        removeEnchant(item, enchantInfo.name);
 
         ItemMeta meta = item.getItemMeta();
         List<String> lore = meta.getLore();
@@ -46,4 +48,22 @@ public class BasicEnchantReadWriter implements IEnchantReadWriter {
         meta.setLore(lore);
         item.setItemMeta(meta);
     }
+
+    @Override
+    public void removeEnchant(ItemStack item, String name) {
+        ItemMeta meta = item.getItemMeta();
+        List<String> lore = meta.getLore();
+        if (lore == null)
+            return;
+
+        for (String str : lore)
+            if (str.startsWith(name)){
+                lore.remove(str);
+                break;
+            }
+
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+    }
+
 }
