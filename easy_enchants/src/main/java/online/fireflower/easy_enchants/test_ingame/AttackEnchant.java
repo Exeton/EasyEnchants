@@ -4,7 +4,6 @@ import online.fireflower.easy_enchants.PlayerDamageEntityEvent;
 import online.fireflower.easy_enchants.enchant_parsing.EnchantInfo;
 import online.fireflower.easy_enchants.enchant_types.Enchant;
 import online.fireflower.easy_enchants.enchant_types.EnchantType;
-import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 
@@ -20,7 +19,7 @@ public class AttackEnchant extends Enchant {
     }
 
     @Override
-    public boolean shouldActivate(Event event) {
+    public boolean shouldActivate(Event event, EnchantInfo enchantInfo) {
         return true;
     }
 

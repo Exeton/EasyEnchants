@@ -31,7 +31,7 @@ public class DefenseArmor extends Enchant implements IEquipable {
     }
 
     @Override
-    public boolean shouldActivate(Event event) {
+    public boolean shouldActivate(Event event, EnchantInfo enchantInfo) {
         return true;
     }
 
