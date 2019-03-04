@@ -30,16 +30,20 @@ public class EnchantRegisterer {
         this.enchantInfoRetriever = enchantInfoRetriever;
     }
 
-    public void registerEvent(Class<? extends Event> type, Enchant enchant, Listener listener){
+    public void registerEvent(Enchant enchant, Listener listener){
+
+
+        EnchantRegisteredListener enchantRegisteredListener = getEnchantRegisteredListener(listener);
+        enchantExecutor.enchantsAndListeners.put(enchant, enchantRegisteredListener);
+
+        Class<? extends Event> type = (Class<? extends Event>)enchantRegisteredListener.method.getParameterTypes()[0];
 
         EnchantEventListener executionWrapper = getExecutionWrapper(type);
-
         executionWrapper.registerEnchant(enchant);
-        enchantExecutor.enchantsAndListeners.put(enchant, getEnchantRegisteredListener(listener));
 
-        //for (RegisteredListener registeredListener : getRegisteredListeners(listener)){
 
-        //}
+
+
     }
 
     private EnchantEventListener getExecutionWrapper(Class<? extends Event> type){
@@ -61,6 +65,7 @@ public class EnchantRegisterer {
     }
 
 
+
     public EnchantRegisteredListener getEnchantRegisteredListener(Listener listener){
         for (Method method : listener.getClass().getMethods()){
 
@@ -71,7 +76,6 @@ public class EnchantRegisterer {
                 continue;
 
             return new EnchantRegisteredListener(listener, method);
-
         }
 
         return null;

@@ -48,10 +48,10 @@ public class EasyEnchants extends JavaPlugin {
 
         //Code for adding an enchant
         AttackEnchant testEnchant = new AttackEnchant(ChatColor.GOLD + "AttackEnchant");
-        registerEnchant("Damage", PlayerDamageEntityEvent.class, testEnchant);
+        registerEnchant("Damage", testEnchant);
 
         DefenseArmor defenseArmor = new DefenseArmor(ChatColor.RED + "DefensiveEnchant");
-        registerEnchantAndEquipable("Defense", EntityDamageByEntityEvent.class, defenseArmor, defenseArmor);
+        registerEnchantAndEquipable("Defense", defenseArmor, defenseArmor);
 
         registerEquipable("Res", ChatColor.GREEN + "Resistance", new ArmorEffectEnchant(PotionEffectType.DAMAGE_RESISTANCE));
 
@@ -66,10 +66,10 @@ public class EasyEnchants extends JavaPlugin {
 
     }
 
-    public static void registerEnchant(String refferenceName, Class eventClass, Enchant enchant){
+    public static void registerEnchant(String refferenceName, Enchant enchant){
 
         String displayName = enchant.displayName;
-        enchantRegisterer.registerEvent(eventClass, enchant, enchant);
+        enchantRegisterer.registerEvent(enchant, enchant);
         enchants.add(displayName);
         lowercaseEnchantKeyworkdsAndNames.put(refferenceName.toLowerCase(), displayName);
         namesAndEnchants.put(displayName, enchant);
@@ -82,8 +82,8 @@ public class EasyEnchants extends JavaPlugin {
 
     }
 
-    public static void registerEnchantAndEquipable(String refferenceName, Class eventClass, Enchant enchant, IEquipable equipable){
-        registerEnchant(refferenceName, eventClass, enchant);
+    public static void registerEnchantAndEquipable(String refferenceName, Enchant enchant, IEquipable equipable){
+        registerEnchant(refferenceName, enchant);
         registerEquipable(refferenceName, enchant.displayName, equipable);
     }
 
