@@ -1,14 +1,14 @@
-package online.fireflower.easy_enchants;
+package online.fireflower.easy_enchants.events.player_kill_entity;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerEvent;
 
-public class PlayerDamageEntityEvent extends PlayerEvent {
+public class PlayerKillEntityEvent extends PlayerEvent {
 
-    public EntityDamageByEntityEvent event;
-    public PlayerDamageEntityEvent(Player who, EntityDamageByEntityEvent event) {
+    public EntityDeathEvent event;
+    public PlayerKillEntityEvent(Player who, EntityDeathEvent event) {
         super(who);
         this.event = event;
     }

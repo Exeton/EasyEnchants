@@ -1,4 +1,4 @@
-package online.fireflower.easy_enchants;
+package online.fireflower.easy_enchants.events.player_damage_player;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

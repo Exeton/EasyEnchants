@@ -12,12 +12,12 @@ import online.fireflower.easy_enchants.enchant_registering.EnchantRegisterer;
 import online.fireflower.easy_enchants.enchant_types.ArmorEffectEnchant;
 import online.fireflower.easy_enchants.enchant_types.Enchant;
 import online.fireflower.easy_enchants.enchant_types.IEquipable;
+import online.fireflower.easy_enchants.events.player_damage_player.EntityDamagedByEntityListener;
 import online.fireflower.easy_enchants.test_ingame.DefenseArmor;
 import online.fireflower.easy_enchants.test_ingame.AttackEnchant;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffectType;

@@ -1,6 +1,6 @@
 package online.fireflower.easy_enchants.test_ingame;
 
-import online.fireflower.easy_enchants.PlayerDamageEntityEvent;
+import online.fireflower.easy_enchants.events.player_damage_player.PlayerDamageEntityEvent;
 import online.fireflower.easy_enchants.enchant_parsing.EnchantInfo;
 import online.fireflower.easy_enchants.enchant_types.Enchant;
 import online.fireflower.easy_enchants.enchant_types.EnchantType;
