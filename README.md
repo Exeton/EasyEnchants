@@ -5,8 +5,7 @@ EasyEnchants strives to a simple API to for enchant makers. This plugin does not
 
 ## Developer Information
 - [Creating Enchants / IEquipables](https://github.com/Exeton/EasyEnchants/blob/master/EnchantCreation.MD)
-- [Advanced Topics]()
-- [Making your own Enchant System]()
+- [Advanced Topics](https://github.com/Exeton/EasyEnchants/blob/master/AdvancedTopics.md)
 
 ## Commands
 - /EasyEnchant refName level
