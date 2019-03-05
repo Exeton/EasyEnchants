@@ -57,10 +57,8 @@ In order to swap dependencies, we'll need to create our new implementation, and 
 
 ```
 
-**
-Note: If you try and access EasyEnchants.dependencyRetriever outside of the runnable, you may run into a null refference exception. This is because the IDependencyCreator object isn't created until after onEnable(). 
-This also means any objects you create which are constructed with an object from EasyEnchants.dependencyRetriever should be created inside the runnable.
-**
+** Note: If you try and access EasyEnchants.dependencyRetriever outside of the runnable, you may run into a null refference exception. This is because the IDependencyCreator object isn't created until after onEnable(). 
+This also means any objects you create which are constructed with an object from EasyEnchants.dependencyRetriever should be created inside the runnable. **
 
 Note 2: All of the interfaces are implemented inline to make it easier to view this code on github. It is advisable to implement all interfaces / classes
 in their own class files to keep your code clean.
