@@ -34,4 +34,9 @@ public class BasicEnchantExecutor implements IEnchantExecutor {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void addEnchant(Enchant enchant, EnchantRegisteredListener enchantRegisteredListener) {
+        enchantsAndListeners.put(enchant, enchantRegisteredListener);
+    }
 }

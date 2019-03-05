@@ -1,6 +1,7 @@
 package online.fireflower.easy_enchants.enchant_registering;
 
 import online.fireflower.easy_enchants.EasyEnchants;
+import online.fireflower.easy_enchants.enchant_execution.IEnchantExecutor;
 import online.fireflower.easy_enchants.enchant_types.Enchant;
 import online.fireflower.easy_enchants.enchant_parsing.EnchantInfoRetriever;
 import online.fireflower.easy_enchants.enchant_execution.BasicEnchantExecutor;
@@ -21,10 +22,10 @@ public class EnchantRegisterer {
     private EasyEnchants main;
     private HashMap<Class, EnchantEventListener> classesAndExecutors = new HashMap<>();
 
-    BasicEnchantExecutor enchantExecutor;
+    IEnchantExecutor enchantExecutor;
     EnchantInfoRetriever enchantInfoRetriever;
 
-    public EnchantRegisterer(BasicEnchantExecutor enchantExecutor, EnchantInfoRetriever enchantInfoRetriever, EasyEnchants easyEnchants){
+    public EnchantRegisterer(IEnchantExecutor enchantExecutor, EnchantInfoRetriever enchantInfoRetriever, EasyEnchants easyEnchants){
         this.main = easyEnchants;
         this.enchantExecutor = enchantExecutor;
         this.enchantInfoRetriever = enchantInfoRetriever;
@@ -34,15 +35,12 @@ public class EnchantRegisterer {
 
 
         EnchantRegisteredListener enchantRegisteredListener = getEnchantRegisteredListener(listener);
-        enchantExecutor.enchantsAndListeners.put(enchant, enchantRegisteredListener);
+        enchantExecutor.addEnchant(enchant, enchantRegisteredListener);
 
         Class<? extends Event> type = (Class<? extends Event>)enchantRegisteredListener.method.getParameterTypes()[0];
 
         EnchantEventListener executionWrapper = getExecutionWrapper(type);
         executionWrapper.registerEnchant(enchant);
-
-
-
 
     }
 

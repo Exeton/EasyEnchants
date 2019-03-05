@@ -1,7 +1,5 @@
 package online.fireflower.easy_enchants.enchant_parsing;
 
-import online.fireflower.easy_enchants.enchant_parsing.EnchantInfo;
-import online.fireflower.easy_enchants.enchant_parsing.IEnchantReadWriter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
