@@ -51,10 +51,12 @@ Like Enchants, Equipables also take a spot on an item's lore. The only differenc
 ## Potion Effect Equipables and Registering Equipables
 
 ```java
-        registerEquipable("Res", ChatColor.GREEN + "Resistance", new ArmorEffectEnchant(PotionEffectType.DAMAGE_RESISTANCE));
+//Standalone IEquipable
+registerEquipable("Res", ChatColor.GREEN + "Resistance", new ArmorEffectEnchant(PotionEffectType.DAMAGE_RESISTANCE));
 
-        DefenseArmor defenseArmor = new DefenseArmor(ChatColor.RED + "DefensiveEnchant");
-        registerEnchantAndEquipable("Defense", defenseArmor, defenseArmor);
+//IEquipable and Enchant
+DefenseArmor defenseArmor = new DefenseArmor(ChatColor.RED + "DefensiveEnchant");
+registerEnchantAndEquipable("Defense", defenseArmor, defenseArmor);
 ```
 
 **Note: You can use registerEnchantAndEquipable and pass in two different classes (an enchant class and an equipable class). Doing this allows you to register an equipable using the same name as the enchant causing both the equipable and enchant code to work under the same name on an itemstack. This is useful if you want to create an enchant which has a potion equip effect, which can be done by passing in an enchant class and a ArmorEffectEnchant.**
