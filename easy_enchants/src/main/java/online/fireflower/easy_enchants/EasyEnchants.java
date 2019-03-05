@@ -4,8 +4,11 @@ import libs.com.codingforcookies.armorequip.ArmorListener;
 import online.fireflower.easy_enchants.commands.EnchantApplicationCommand;
 import online.fireflower.easy_enchants.dependency_injection.creation.DefaultDependencyCreator;
 import online.fireflower.easy_enchants.dependency_injection.creation.DependencyCache;
+import online.fireflower.easy_enchants.dependency_injection.creation.DependencyCreatorDecorator;
 import online.fireflower.easy_enchants.dependency_injection.creation.IDependencyCreator;
 import online.fireflower.easy_enchants.dependency_injection.ordering.DependencyBuilder;
+import online.fireflower.easy_enchants.enchant_parsing.EnchantInfo;
+import online.fireflower.easy_enchants.enchant_parsing.IEnchantInfoParser;
 import online.fireflower.easy_enchants.enchant_registering.EnchantRegisterer;
 import online.fireflower.easy_enchants.enchant_types.ArmorEffectEnchant;
 import online.fireflower.easy_enchants.enchant_types.Enchant;
@@ -24,7 +27,6 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-
 
 public class EasyEnchants extends JavaPlugin {
 
@@ -55,6 +57,8 @@ public class EasyEnchants extends JavaPlugin {
         pluginManager.registerEvents(new ArmorListener(new LinkedList<>()), this);
         pluginManager.registerEvents(new EntityDamagedByEntityListener(), this);
         pluginManager.registerEvents(new EntityDeathListener(), this);
+
+        InjectSpecialFormatting();
         registerTestEnchants();
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(this, () ->
@@ -63,6 +67,48 @@ public class EasyEnchants extends JavaPlugin {
             injectDependencies();
             runPostDITasks();
         }, 1);
+
+    }
+
+    private void InjectSpecialFormatting(){
+
+        EasyEnchants easyEnchants = EasyEnchants.getInstance();
+        Runnable dependencySwapTask = new Runnable() {
+            @Override
+            public void run() {
+
+                IEnchantInfoParser enchantInfoParser = new IEnchantInfoParser() {
+
+                    IEnchantInfoParser defaultParser = easyEnchants.dependencyRetriever.getEnchantInfoParser();
+
+                    @Override
+                    public EnchantInfo getEnchantInfo(String enchantString) {
+                        return defaultParser.getEnchantInfo(enchantString.replace(" - ", " "));
+                    }
+
+                    @Override
+                    public String createEnchantString(EnchantInfo enchantInfo) {
+                        return enchantInfo.name + " - " + enchantInfo.level;
+                    }
+                };
+
+                class DependencySwapDecorator extends DependencyCreatorDecorator{
+
+                    public DependencySwapDecorator(IDependencyCreator dependencyCreator) {
+                        super(dependencyCreator);
+                    }
+
+                    @Override
+                    public IEnchantInfoParser getEnchantInfoParser() {
+                        return enchantInfoParser;
+                    }
+                }
+
+                easyEnchants.dependencyRetriever = new DependencySwapDecorator(easyEnchants.dependencyRetriever);
+            }
+        };
+
+        EasyEnchants.dependencyBuilder.addTask(dependencySwapTask, 5);
 
     }
 
@@ -88,18 +134,27 @@ public class EasyEnchants extends JavaPlugin {
     private void registerTestEnchants(){
         //Code for adding an enchant
         AttackEnchant testEnchant = new AttackEnchant(ChatColor.GOLD + "AttackEnchant");
-        registerEnchant("Damage", testEnchant);
+        registerEnchant(testEnchant);
 
         DefenseArmor defenseArmor = new DefenseArmor(ChatColor.RED + "DefensiveEnchant");
-        registerEnchantAndEquipable("Defense", defenseArmor, defenseArmor);
+        registerEnchantAndEquipable(defenseArmor, defenseArmor);
 
-        registerEquipable("Res", ChatColor.GREEN + "Resistance", new ArmorEffectEnchant(PotionEffectType.DAMAGE_RESISTANCE));
+        registerEquipable(ChatColor.GREEN + "Resistance", new ArmorEffectEnchant(PotionEffectType.DAMAGE_RESISTANCE));
+    }
+
+
+    public static void registerEnchantAndEquipable(Enchant enchant, IEquipable equipable){
+        registerEnchantAndEquipable(getRefferenceName(enchant), enchant, equipable);
     }
 
     //This method can be run without scheduling a runnable because both the methods it calls will schedule a runnable if neccessary.
     public static void registerEnchantAndEquipable(String refferenceName, Enchant enchant, IEquipable equipable){
         registerEnchant(refferenceName, enchant);
         registerEquipable(refferenceName, enchant.displayName, equipable);
+    }
+
+    public static void registerEnchant(Enchant enchant){
+        registerEnchant(getRefferenceName(enchant), enchant);
     }
 
     public static void registerEnchant(String refferenceName, Enchant enchant){
@@ -109,6 +164,10 @@ public class EasyEnchants extends JavaPlugin {
         else
             getInstance().postDependencyTasks.add(() -> actuallyRegisterEnchant(refferenceName, enchant));
 
+    }
+
+    public static void registerEquipable(String actualName, IEquipable equipable){
+        registerEquipable(getRefferenceName(actualName), actualName, equipable);
     }
 
     public static void registerEquipable(String refferenceName, String actualName, IEquipable equipable){
@@ -131,5 +190,14 @@ public class EasyEnchants extends JavaPlugin {
         getInstance().namesAndEquipables.put(actualName, equipable);
         getInstance().enchants.add(actualName);
         getInstance().lowercaseEquipableKeyworkdsAndNames.put(refferenceName.toLowerCase(), actualName);
+    }
+
+
+    private static String getRefferenceName(Enchant enchant){
+        return getRefferenceName(enchant.displayName);
+    }
+
+    private static String getRefferenceName(String displayName){
+        return ChatColor.stripColor(displayName.replace(" ", ""));
     }
 }

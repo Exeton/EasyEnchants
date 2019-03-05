@@ -7,7 +7,7 @@ import java.util.Random;
 
 public abstract class RandomEnchant extends Enchant {
 
-    private Random random;
+    public Random random;
 
     public RandomEnchant(String displayName, Random random) {
         super(displayName);

@@ -32,8 +32,6 @@ public class EnchantRegisterer {
     }
 
     public void registerEvent(Enchant enchant, Listener listener){
-
-
         EnchantRegisteredListener enchantRegisteredListener = getEnchantRegisteredListener(listener);
         enchantExecutor.addEnchant(enchant, enchantRegisteredListener);
 
@@ -41,7 +39,6 @@ public class EnchantRegisterer {
 
         EnchantEventListener executionWrapper = getExecutionWrapper(type);
         executionWrapper.registerEnchant(enchant);
-
     }
 
     private EnchantEventListener getExecutionWrapper(Class<? extends Event> type){
