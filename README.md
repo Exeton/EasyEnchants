@@ -9,4 +9,4 @@ EasyEnchants is a spigot plugin designed to handle enchants, and provide an API 
 - [Making your own Enchant System]()
 
 ## Commands
-- /EasyEnchant enchantRefferenceName level
+- /EasyEnchant refName level
