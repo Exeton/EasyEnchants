@@ -63,5 +63,12 @@ This also means any objects you create which are constructed with an object from
 Note 2: All of the interfaces are implemented inline to make it easier to view this code on github. It is advisable to implement all interfaces / classes
 in their own class files to keep your code clean.
 
+## Using EasyEnchants in your own Enchants plugin
+
+If you're going to use EasyEnchants in your own plugin, you're going to need to know a few additional things.
+
+1. EasyEnchants.dependencyRetriever is wrapped in a decorator which caches all the dependencies. This means you can use the dependencyRetriever object to retrieve all dependencies you might need for creating your own plugin. (i.e. you can use it to retrieve the IEnchantReadWriter, which you can use for applying enchants on items)
+
+2. By implementing IEnchantExecutor, you can control every aspect of what enchants are ran. An IEnchantExecutor object will be called after EasyEnchants determines what enchants are on the player's item. After that, you can do whatever you want. You can do the same, to a lesser with IActivatedEnchantCuller.
 
 
