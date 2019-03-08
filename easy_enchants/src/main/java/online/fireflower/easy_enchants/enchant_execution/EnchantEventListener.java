@@ -8,6 +8,7 @@ import online.fireflower.easy_enchants.enchant_parsing.EnchantInfo;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventException;
 import org.bukkit.event.Listener;
@@ -46,6 +47,15 @@ public class EnchantEventListener implements EventExecutor {
 
     //Takes inputted listener is a dummy listener and is not used.
     public void execute(Listener listener, Event event) throws EventException {
+
+
+        if (event instanceof Cancellable){
+            Cancellable cancellable = (Cancellable)event;
+            if (cancellable.isCancelled())
+                return;
+
+
+        }
 
         if (!eventType.isAssignableFrom(event.getClass())) {
             return;

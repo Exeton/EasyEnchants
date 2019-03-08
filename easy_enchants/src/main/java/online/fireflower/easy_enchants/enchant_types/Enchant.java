@@ -15,4 +15,5 @@ public abstract class Enchant implements Listener {
     public abstract boolean shouldActivate(Event event, EnchantInfo enchantInfo);
 
     public abstract EnchantType getType();
+
 }

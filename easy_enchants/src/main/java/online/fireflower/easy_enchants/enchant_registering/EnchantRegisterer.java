@@ -48,7 +48,7 @@ public class EnchantRegisterer {
 
         EnchantEventListener wrapper = new EnchantEventListener(enchantInfoRetriever, enchantExecutor, type);
         classesAndExecutors.put(type, wrapper);
-        Bukkit.getPluginManager().registerEvent(type, new DummyListener(), EventPriority.NORMAL, wrapper, main);
+        Bukkit.getPluginManager().registerEvent(type, new DummyListener(), EventPriority.HIGHEST, wrapper, main);
         return wrapper;
     }
 
