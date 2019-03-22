@@ -1,5 +1,6 @@
 package online.fireflower.easy_enchants.enchant_parsing;
 
+import online.fireflower.easy_enchants.enchant_parsing.numbers.RomanNumeralParser;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -42,7 +43,8 @@ public class BasicLoreParserTest {
         enchants.add("TeSt EnChAnT");
         enchants.add("suPer Enchant");
 
-        return new BasicEnchantInfoParser(enchants);
+        return null;
+//        return new BasicEnchantInfoParser(enchants, );
     }
 
 }

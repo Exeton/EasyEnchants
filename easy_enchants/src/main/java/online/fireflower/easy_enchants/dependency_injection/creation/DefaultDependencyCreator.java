@@ -5,6 +5,7 @@ import online.fireflower.easy_enchants.enchant_execution.BasicEnchantCuller;
 import online.fireflower.easy_enchants.enchant_execution.BasicEnchantExecutor;
 import online.fireflower.easy_enchants.enchant_execution.IEnchantExecutor;
 import online.fireflower.easy_enchants.enchant_parsing.*;
+import online.fireflower.easy_enchants.enchant_parsing.numbers.RomanNumeralParser;
 import online.fireflower.easy_enchants.enchant_registering.EnchantRegisterer;
 
 import java.util.HashMap;
@@ -19,7 +20,7 @@ public class DefaultDependencyCreator implements IDependencyCreator {
 
     @Override
     public IEnchantInfoParser getEnchantInfoParser() {
-        return new BasicEnchantInfoParser(main.enchants);
+        return new BasicEnchantInfoParser(main.enchants, RomanNumeralParser.getInstance());
     }
 
     @Override

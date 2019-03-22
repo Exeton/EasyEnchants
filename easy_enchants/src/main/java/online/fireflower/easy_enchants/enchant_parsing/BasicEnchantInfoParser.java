@@ -1,13 +1,17 @@
 package online.fireflower.easy_enchants.enchant_parsing;
 
+import online.fireflower.easy_enchants.enchant_parsing.numbers.INumberParser;
+
 import java.util.List;
 
 public class BasicEnchantInfoParser implements IEnchantInfoParser {
 
     public List<String> enchants;
+    INumberParser numberParser;
 
-    public BasicEnchantInfoParser(List<String> enchants){
+    public BasicEnchantInfoParser(List<String> enchants, INumberParser numberParser){
         this.enchants = enchants;
+        this.numberParser = numberParser;
     }
 
     @Override
@@ -21,8 +25,8 @@ public class BasicEnchantInfoParser implements IEnchantInfoParser {
                     continue;
 
                 String level = enchantString.substring(enchant.length() + 1);
-                if (tryParseInt(level)){
-                    return new EnchantInfo(enchant, Integer.parseInt(level));
+                if (numberParser.canParse(level)){
+                    return new EnchantInfo(enchant, numberParser.parse(level));
                 }
             }
         }
@@ -30,17 +34,8 @@ public class BasicEnchantInfoParser implements IEnchantInfoParser {
         return null;
     }
 
-    boolean tryParseInt(String value) {
-        try {
-            Integer.parseInt(value);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
     @Override
     public String createEnchantString(EnchantInfo enchantInfo) {
-        return enchantInfo.name + " " + enchantInfo.level;
+        return enchantInfo.name + " " + numberParser.toInt(enchantInfo.level);
     }
 }

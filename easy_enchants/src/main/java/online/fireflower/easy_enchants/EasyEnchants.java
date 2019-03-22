@@ -58,7 +58,7 @@ public class EasyEnchants extends JavaPlugin {
         pluginManager.registerEvents(new EntityDamagedByEntityListener(), this);
         pluginManager.registerEvents(new EntityDeathListener(), this);
 
-        InjectSpecialFormatting();
+        //InjectSpecialFormatting();
         registerTestEnchants();
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(this, () ->
