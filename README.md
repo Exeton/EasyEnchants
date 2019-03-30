@@ -3,6 +3,11 @@
 ## Intro
 EasyEnchants strives to a simple API to for enchant makers. This plugin does not contain a system for applying enchantments to items. Check out [EnchantBooks](https://github.com/Exeton/EnchantBooks) for features like /enchanter. 
 
+## Advantages
+1. Automatically checks if an Enchant is activated before calling that Enchant's event.
+2. Events are now structured as public void myEvent(EntityDamagedByEntity event, EnchantInfo enchantInfo) which gives you access to information like the Enchant's name and level.
+3. You have control over how Enchants are executed. This can be used to do things like prevent two enchants from activating at the same time.
+4. You have access to enchant reading and writing. This means you can choose if your enchant levels are in roman numerals, 1-10 numbers, or even if they're in hex.
 
 ## How it works
 
