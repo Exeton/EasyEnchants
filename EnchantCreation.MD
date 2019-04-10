@@ -37,8 +37,8 @@ If your enchant listens for the EntityDamagedByEntity or EntityDeathEvent event,
 To register an enchant, simply pass in the refference name (used for the /easyenchant command) and the enchant object.
 
 ```java
-        AttackEnchant testEnchant = new AttackEnchant(ChatColor.GOLD + "AttackEnchant");
-        EasyEnchants.registerEnchant("Damage", testEnchant);
+AttackEnchant testEnchant = new AttackEnchant(ChatColor.GOLD + "AttackEnchant");
+EasyEnchants.registerEnchant("Damage", testEnchant);
 ```
 
 ## Equipables
