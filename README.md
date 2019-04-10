@@ -1,7 +1,7 @@
 # EasyEnchants
 
 ## Intro
-EasyEnchants strives to a simple API to for enchant makers. This plugin does not contain a system for applying enchantments to items. Check out [EnchantBooks](https://github.com/Exeton/EnchantBooks) for features like /enchanter. 
+EasyEnchants is a Minecraft Spigot plugin that strives to a simple API to for enchant makers. This plugin does not contain a system for applying enchantments to items. Check out [EnchantBooks](https://github.com/Exeton/EnchantBooks) for features like /enchanter. 
 
 ## Advantages
 1. Automatically checks if an Enchant is activated before calling that Enchant's event.
