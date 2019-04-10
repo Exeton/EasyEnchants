@@ -22,4 +22,5 @@ This is done by checking (using reflection) if the Event has a getPlayer() or ge
 - [Advanced Topics](https://github.com/Exeton/EasyEnchants/blob/master/AdvancedTopics.md)
 
 ## Commands
-- /EasyEnchant refName level
+
+- `/EasyEnchant refName level`
